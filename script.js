@@ -4,7 +4,9 @@ const rainAudio = document.getElementById("rainAudio");
 
 playBtn.addEventListener("click", function() {
   if (rainAudio.paused) {
-    rainAudio.play().catch(err => console.log(err));
+    rainAudio.play().catch(function(error) {
+      console.log("Playback error:", error);
+    });
     box.classList.add("active");
   } else {
     rainAudio.pause();
@@ -12,10 +14,11 @@ playBtn.addEventListener("click", function() {
   }
 });
 
-box.addEventListener:// ... rest of box listener
 box.addEventListener("click", function() {
   if (rainAudio.paused) {
-    rainAudio.play().catch(err => console.log(err));
+    rainAudio.play().catch(function(error) {
+      console.log("Playback error:", error);
+    });
     box.classList.add("active");
   } else {
     rainAudio.pause();
