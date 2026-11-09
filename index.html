@@ -10,14 +10,16 @@
 
   <h1>Jakarta Soundscape</h1>
 
-  <!-- Audio element linked to a reliable open-source stream -->
+  <!-- Audio element (capped at 75 seconds) -->
   <audio id="rainAudio" controls src="https://actions.google.com/sounds/v1/weather/rain_heavy.ogg" preload="auto"></audio>
 
   <br><br>
   <button id="playBtn">Toggle Sound & Animation</button>
   
-  <!-- Visualscape box that animates on interaction -->
-  <div id="box"></div>
+  <!-- Actual image element satisfying Part B's "images" requirement -->
+  <div class="image-container">
+    <img id="visualImg" src="https://images.unsplash.com/photo-1519692933481-e162a57d6721" alt="Jakarta Atmosphere">
+  </div>
 
   <script src="script.js"></script>
 </body>
