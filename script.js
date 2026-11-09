@@ -1,22 +1,31 @@
 const playBtn = document.getElementById("playBtn");
-const box = document.getElementById("box");
+const visualImg = document.getElementById("visualImg");
 const rainAudio = document.getElementById("rainAudio");
 
-// Function to handle audio playback and visual animation synchronization
+// Strict 75-second audio cap to stay within the 60-90 second rule
+rainAudio.addEventListener("timeupdate", function() {
+  if (rainAudio.currentTime >= 75) {
+    rainAudio.pause();
+    rainAudio.currentTime = 0;
+    visualImg.classList.remove("active");
+    playBtn.textContent = "Toggle Sound & Animation";
+  }
+});
+
 function toggleMedia() {
   if (rainAudio.paused) {
     rainAudio.play().then(function() {
       playBtn.textContent = "Pause Sound & Animation";
-      box.classList.add("active");
+      visualImg.classList.add("active");
     }).catch(function(error) {
       console.log("Playback error:", error);
     });
   } else {
     rainAudio.pause();
     playBtn.textContent = "Toggle Sound & Animation";
-    box.classList.remove("active");
+    visualImg.classList.remove("active");
   }
 }
 
 playBtn.addEventListener("click", toggleMedia);
-box.addEventListener("click", toggleMedia);
+visualImg.addEventListener("click", toggleMedia);
