@@ -1,28 +1,31 @@
 const playBtn = document.getElementById("playBtn");
 const box = document.getElementById("box");
+const soundscape = document.getElementById("soundscape");
 
-// Create a simple browser-generated beep sound so it never fails to load
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playBeep() {
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
+playBtn.addEventListener("click", function() {
+  if (soundscape.paused) {
+    soundscape.play().then(() => {
+      playBtn.textContent = "Pause Soundscape";
+      box.classList.add("active");
+    }).catch(err => {
+      console.log("Playback prevented:", err);
+    });
+  } else {
+    soundscape.pause();
+    playBtn.textContent = "Play Soundscape";
+    box.classList.remove("active");
   }
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = "sine";
-  osc.frequency.value = 440; // Pitch of the sound
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + 0.3); // Plays for 0.3 seconds
-}
-
-playBtn.addEventListener("click", () => {
-  playBeep();
-  box.classList.add("active");
 });
 
-box.addEventListener("click", () => {
-  playBeep();
-  box.classList.toggle("active");
+box.addEventListener("click", function() {
+  if (soundscape.paused) {
+    soundscape.play().then(() => {
+      playBtn.textContent = "Pause Soundscape";
+      box.classList.add("active");
+    });
+  } else {
+    soundscape.pause();
+    playBtn.textContent = "Play Soundscape";
+    box.classList.remove("active");
+  }
 });
