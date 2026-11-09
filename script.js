@@ -1,71 +1,37 @@
 const playBtn = document.getElementById("playBtn");
 const visualImg = document.getElementById("visualImg");
 
-let audioCtx = null;
-let noiseNode = null;
-let gainNode = null;
+const soundAudio = new Audio("https://cdn.pixabay.com/download/audio/2022/05/16/audio_db6591201e.mp3");
+soundAudio.loop = true;
+
 let isPlaying = false;
 let checkTimer = null;
 let startTime = 0;
 
-async function toggleMedia() {
+function toggleMedia() {
   if (!isPlaying) {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!audioCtx) {
-      audioCtx = new AudioContext();
-    }
-    if (audioCtx.state === 'suspended') {
-      await audioCtx.resume();
-    }
+    soundAudio.play().then(function() {
+      isPlaying = true;
+      startTime = Date.now();
+      playBtn.textContent = "Pause Sound & Animation";
+      visualImg.classList.add("active");
 
-    const bufferSize = audioCtx.sampleRate * 2;
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-
-    noiseNode = audioCtx.createBufferSource();
-    noiseNode.buffer = buffer;
-    noiseNode.loop = true;
-
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 800;
-
-    gainNode = audioCtx.createGain();
-    gainNode.gain.value = 0.2;
-
-    noiseNode.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    noiseNode.start();
-    isPlaying = true;
-    startTime = Date.now();
-    playBtn.textContent = "Pause Sound & Animation";
-    visualImg.classList.add("active");
-
-    checkTimer = setInterval(function() {
-      if ((Date.now() - startTime) / 1000 >= 75) {
-        stopMedia();
-      }
-    }, 1000);
-
+      checkTimer = setInterval(function() {
+        if ((Date.now() - startTime) / 1000 >= 75) {
+          stopMedia();
+        }
+      }, 1000);
+    }).catch(function(err) {
+      console.log(err);
+    });
   } else {
     stopMedia();
   }
 }
 
 function stopMedia() {
-  if (noiseNode) {
-    noiseNode.stop();
-    noiseNode.disconnect();
-  }
-  if (audioCtx && audioCtx.state !== 'closed') {
-    audioCtx.close();
-    audioCtx = null;
-  }
+  soundAudio.pause();
+  soundAudio.currentTime = 0;
   isPlaying = false;
   visualImg.classList.remove("active");
   playBtn.textContent = "Toggle Sound & Animation";
