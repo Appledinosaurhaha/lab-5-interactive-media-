@@ -1,31 +1,57 @@
-const playBtn = document.getElementById("playBtn");
-const visualImg = document.getElementById("visualImg");
-const rainAudio = document.getElementById("rainAudio");
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin-top: 50px;
+}
 
-// Strict 75-second audio cap to stay within the 60-90 second rule
-rainAudio.addEventListener("timeupdate", function() {
-  if (rainAudio.currentTime >= 75) {
-    rainAudio.pause();
-    rainAudio.currentTime = 0;
-    visualImg.classList.remove("active");
-    playBtn.textContent = "Toggle Sound & Animation";
+h1 {
+  color: #2c3e50;
+}
+
+.image-container {
+  margin: 30px auto;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#visualImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+@keyframes pulseAndRotate {
+  0% {
+    transform: scale(1) rotate(0deg);
   }
-});
-
-function toggleMedia() {
-  if (rainAudio.paused) {
-    rainAudio.play().then(function() {
-      playBtn.textContent = "Pause Sound & Animation";
-      visualImg.classList.add("active");
-    }).catch(function(error) {
-      console.log("Playback error:", error);
-    });
-  } else {
-    rainAudio.pause();
-    playBtn.textContent = "Toggle Sound & Animation";
-    visualImg.classList.remove("active");
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
   }
 }
 
-playBtn.addEventListener("click", toggleMedia);
-visualImg.addEventListener("click", toggleMedia);
+#visualImg.active {
+  animation: pulseAndRotate 2s infinite ease-in-out;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #27ae60;
+}
