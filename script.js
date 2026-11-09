@@ -10,7 +10,6 @@ let startTime = 0;
 
 async function toggleMedia() {
   if (!isPlaying) {
-    // Initialize AudioContext and explicitly resume it for Safari compliance
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!audioCtx) {
       audioCtx = new AudioContext();
@@ -19,7 +18,6 @@ async function toggleMedia() {
       await audioCtx.resume();
     }
 
-    // Generate continuous ambient noise buffer (simulating Jakarta rain/soundscape)
     const bufferSize = audioCtx.sampleRate * 2;
     const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
     const data = buffer.getChannelData(0);
@@ -31,7 +29,6 @@ async function toggleMedia() {
     noiseNode.buffer = buffer;
     noiseNode.loop = true;
 
-    // Filter to make it a soft, pleasant ambient sound
     const filter = audioCtx.createBiquadFilter();
     filter.type = 'lowpass';
     filter.frequency.value = 800;
@@ -49,7 +46,6 @@ async function toggleMedia() {
     playBtn.textContent = "Pause Sound & Animation";
     visualImg.classList.add("active");
 
-    // Strict 75-second cap to satisfy the 60-90 second duration rule
     checkTimer = setInterval(function() {
       if ((Date.now() - startTime) / 1000 >= 75) {
         stopMedia();
