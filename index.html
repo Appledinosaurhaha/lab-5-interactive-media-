@@ -10,11 +10,12 @@
 
   <h1>Jakarta Soundscape</h1>
 
-  <!-- Audio Element using a public ambient soundscape stream -->
-  <audio id="soundscape" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/A_City_in_Rain.ogg" preload="auto" loop></audio>
+  <!-- Native audio element with controls so playback is guaranteed -->
+  <audio id="rainAudio" controls src="https://upload.wikimedia.org/wikipedia/commons/b/b2/A_City_in_Rain.ogg"></audio>
 
-  <button id="playBtn">Play Soundscape</button>
-
+  <br><br>
+  <button id="playBtn">Toggle Sound & Animation</button>
+  
   <div id="box"></div>
 
   <script src="script.js"></script>
