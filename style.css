@@ -18,7 +18,6 @@ h1 {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* The actual image that animates when active */
 #visualImg {
   width: 100%;
   height: 100%;
