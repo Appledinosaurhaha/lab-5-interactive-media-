@@ -2,26 +2,21 @@ const playBtn = document.getElementById("playBtn");
 const box = document.getElementById("box");
 const rainAudio = document.getElementById("rainAudio");
 
-playBtn.addEventListener("click", function() {
+// Function to handle audio playback and visual animation synchronization
+function toggleMedia() {
   if (rainAudio.paused) {
-    rainAudio.play().catch(function(error) {
+    rainAudio.play().then(function() {
+      playBtn.textContent = "Pause Sound & Animation";
+      box.classList.add("active");
+    }).catch(function(error) {
       console.log("Playback error:", error);
     });
-    box.classList.add("active");
   } else {
     rainAudio.pause();
+    playBtn.textContent = "Toggle Sound & Animation";
     box.classList.remove("active");
   }
-});
+}
 
-box.addEventListener("click", function() {
-  if (rainAudio.paused) {
-    rainAudio.play().catch(function(error) {
-      console.log("Playback error:", error);
-    });
-    box.classList.add("active");
-  } else {
-    rainAudio.pause();
-    box.classList.remove("active");
-  }
-});
+playBtn.addEventListener("click", toggleMedia);
+box.addEventListener("click", toggleMedia);
