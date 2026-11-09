@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jakarta Soundscape</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <h1>Jakarta Soundscape</h1>
-  
-  <!-- Audio -->
-  <audio id="audio id="myAudio" src="https://www.w3schools.com/html/horse.mp3"></audio"></audio>
-  <button id="playBtn">Play Sound</button>
 
-  <!-- Interactive Visual -->
-  <div id="box" class="box">Click me or press Play!</div>
+  <!-- Audio Element using a public ambient soundscape stream -->
+  <audio id="soundscape" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/A_City_in_Rain.ogg" preload="auto" loop></audio>
+
+  <button id="playBtn">Play Soundscape</button>
+
+  <div id="box"></div>
 
   <script src="script.js"></script>
 </body>
